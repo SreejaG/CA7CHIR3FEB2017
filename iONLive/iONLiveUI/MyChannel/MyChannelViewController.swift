@@ -710,37 +710,37 @@ extension MyChannelViewController: UITableViewDelegate, UITableViewDataSource
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: MyChannelCell.identifier, for:indexPath) as! MyChannelCell
             cell.editChanelNameTextField.tag = indexPath.row
-            let channleName = dataSourceTmp![indexPath.row][channelNameKey] as? String
-            if ((channleName == "My Day") || (channleName == "Archive"))
-            {
-                cell.removeGestureRecognizer(longPressRecognizer)
-            }
-            else{
-                cell.editChanelNameTextField.delegate = self
-                longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(MyChannelViewController.handleChannelLongPress(longPressGestureRecognizer:)))
-                cell.addGestureRecognizer(longPressRecognizer)
-            }
+//            let channleName = dataSourceTmp![indexPath.row][channelNameKey] as? String
+//            if ((channleName == "My Day") || (channleName == "Archive"))
+//            {
+//                cell.removeGestureRecognizer(longPressRecognizer)
+//            }
+//            else{
+//                cell.editChanelNameTextField.delegate = self
+//                longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(MyChannelViewController.handleChannelLongPress(longPressGestureRecognizer:)))
+//                cell.addGestureRecognizer(longPressRecognizer)
+//            }
             
-            if(indexPath.row == longPressIndexPathRow)
-            {
-                let str = UserDefaults.standard.value(forKey: "editedValue")
-                cell.editChanelNameTextField.text = str as? String
-                cell.channelNameLabel.isHidden = true
-                cell.editChanelNameTextField.isHidden = false
-                cell.editChanelNameTextField.isUserInteractionEnabled = true
-                cell.editChanelNameTextField.autocorrectionType = .no
-                cell.editChanelNameTextField.becomeFirstResponder()
-                cell.channelItemCount.text = dataSourceTmp![indexPath.row][totalMediaKey] as? String
-                if let latestImage = dataSourceTmp![indexPath.row][tImageKey]
-                {
-                    cell.channelHeadImageView.image = latestImage as? UIImage
-                }
-                else
-                {
-                    cell.channelHeadImageView.image = UIImage(named: "thumb12")
-                }
-            }
-            else{
+//            if(indexPath.row == longPressIndexPathRow)
+//            {
+//                let str = UserDefaults.standard.value(forKey: "editedValue")
+//                cell.editChanelNameTextField.text = str as? String
+//                cell.channelNameLabel.isHidden = true
+//                cell.editChanelNameTextField.isHidden = false
+//                cell.editChanelNameTextField.isUserInteractionEnabled = true
+//                cell.editChanelNameTextField.autocorrectionType = .no
+//                cell.editChanelNameTextField.becomeFirstResponder()
+//                cell.channelItemCount.text = dataSourceTmp![indexPath.row][totalMediaKey] as? String
+//                if let latestImage = dataSourceTmp![indexPath.row][tImageKey]
+//                {
+//                    cell.channelHeadImageView.image = latestImage as? UIImage
+//                }
+//                else
+//                {
+//                    cell.channelHeadImageView.image = UIImage(named: "thumb12")
+//                }
+//            }
+//            else{
                 cell.editChanelNameTextField.text = ""
                 cell.editChanelNameTextField.isHidden = true
                 cell.editChanelNameTextField.isUserInteractionEnabled = false
@@ -756,7 +756,7 @@ extension MyChannelViewController: UITableViewDelegate, UITableViewDataSource
                     cell.channelHeadImageView.image = UIImage(named: "thumb12")
                 }
                 cell.selectionStyle = .none
-            }
+//            }
             return cell
         }
         else{

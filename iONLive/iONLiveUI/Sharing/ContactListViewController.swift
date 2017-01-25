@@ -51,8 +51,8 @@ class ContactListViewController: UIViewController
     var NoDatalabelFormySharingImageList : UILabel = UILabel()
     
     //Pull to refresh
-    var refreshControl:UIRefreshControl!
-    var pullToRefreshActive = false
+//    var refreshControl:UIRefreshControl!
+//    var pullToRefreshActive = false
     
     var operationQueueObjInSharingContactList = OperationQueue()
     var operationInSharingContactList = BlockOperation()
@@ -70,10 +70,10 @@ class ContactListViewController: UIViewController
         
         contactAuthorizationAlert()
         
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: #selector(ContactListViewController.pullToRefresh), for: .valueChanged)
-        self.contactListTableView.addSubview(self.refreshControl)
+//        self.refreshControl = UIRefreshControl()
+//        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+//        self.refreshControl.addTarget(self, action: #selector(ContactListViewController.pullToRefresh), for: .valueChanged)
+//        self.contactListTableView.addSubview(self.refreshControl)
     }
     
     override func didReceiveMemoryWarning() {
@@ -118,25 +118,25 @@ class ContactListViewController: UIViewController
         }
     }
     
-    func pullToRefresh()
-    {
-        if(!pullToRefreshActive){
-            pullToRefreshActive = true
-            operationInSharingContactList.cancel()
-            self.contactListSearchBar.text = ""
-            self.contactListSearchBar.resignFirstResponder()
-            searchActive = false
-            self.getPullToRefreshData()
-        }
-        else
-        {
-        }
-    }
-    
-    func getPullToRefreshData()
-    {
-        initialise()
-    }
+//    func pullToRefresh()
+//    {
+//        if(!pullToRefreshActive){
+//            pullToRefreshActive = true
+//            operationInSharingContactList.cancel()
+//            self.contactListSearchBar.text = ""
+//            self.contactListSearchBar.resignFirstResponder()
+//            searchActive = false
+//            self.getPullToRefreshData()
+//        }
+//        else
+//        {
+//        }
+//    }
+//    
+//    func getPullToRefreshData()
+//    {
+//        initialise()
+//    }
     
     @IBAction func didTapBackButton(_ sender: Any) {
         if(doneButton.isHidden == false){
@@ -288,9 +288,9 @@ class ContactListViewController: UIViewController
     }
     
     func displayContacts(){
-        if(!pullToRefreshActive){
+//        if(!pullToRefreshActive){
             showOverlay()
-        }
+//        }
         contactPhoneNumbers.removeAll()
         let defaults = UserDefaults.standard
         let phoneCode = defaults.value(forKey: "countryCode") as! String
@@ -343,13 +343,13 @@ class ContactListViewController: UIViewController
             addContactDetails(contactPhoneNumbers: self.contactPhoneNumbers as NSArray)
         }
         else{
-            if(!pullToRefreshActive){
+//            if(!pullToRefreshActive){
                 self.removeOverlay()
-            }
-            else{
-                self.refreshControl.endRefreshing()
-                self.pullToRefreshActive = false
-            }
+//            }
+//            else{
+//                self.refreshControl.endRefreshing()
+//                self.pullToRefreshActive = false
+//            }
             addNoDataLabel()
         }
     }
@@ -391,13 +391,13 @@ class ContactListViewController: UIViewController
     
     func authenticationFailureHandlerAdd(error: NSError?, code: String)
     {
-        if(!pullToRefreshActive){
+     //   if(!pullToRefreshActive){
             self.removeOverlay()
-        }
-        else{
-            self.refreshControl.endRefreshing()
-            self.pullToRefreshActive = false
-        }
+//        }
+//        else{
+//            self.refreshControl.endRefreshing()
+//            self.pullToRefreshActive = false
+//        }
         addNoDataLabel()
         if !self.requestManager.validConnection() {
             ErrorManager.sharedInstance.noNetworkConnection()
@@ -469,13 +469,13 @@ class ContactListViewController: UIViewController
     
     func authenticationSuccessHandler(response:AnyObject?)
     {
-        if(!pullToRefreshActive){
+      //  if(!pullToRefreshActive){
             self.removeOverlay()
-        }
-        else{
-            self.refreshControl.endRefreshing()
-            self.pullToRefreshActive = false
-        }
+//        }
+//        else{
+//            self.refreshControl.endRefreshing()
+//            self.pullToRefreshActive = false
+//        }
         
         if let json = response as? [String: AnyObject]
         {
@@ -635,13 +635,13 @@ class ContactListViewController: UIViewController
     
     func authenticationFailureHandler(error: NSError?, code: String)
     {
-        if(!pullToRefreshActive){
+//        if(!pullToRefreshActive){
             self.removeOverlay()
-        }
-        else{
-            self.refreshControl.endRefreshing()
-            self.pullToRefreshActive = false
-        }
+//        }
+//        else{
+//            self.refreshControl.endRefreshing()
+//            self.pullToRefreshActive = false
+//        }
         
         if !self.requestManager.validConnection() {
             ErrorManager.sharedInstance.noNetworkConnection()

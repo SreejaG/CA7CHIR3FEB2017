@@ -1,7 +1,7 @@
 
 import UIKit
 
-class EditProfileViewController: UIViewController, UINavigationControllerDelegate,UIImagePickerControllerDelegate,URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate,UITextFieldDelegate {
+class EditProfileViewController: UIViewController, UINavigationControllerDelegate,UIImagePickerControllerDelegate,URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate,UITextFieldDelegate, UIScrollViewDelegate {
     
     static let identifier = "EditProfileViewController"
     @IBOutlet weak var editProfileTableView: UITableView!
@@ -86,20 +86,25 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
         view.endEditing(true)
     }
     
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+       view.endEditing(true)
+    }
+    
     func tableViewTap(recognizer: UITapGestureRecognizer)
     {
         if recognizer.state == UIGestureRecognizerState.ended {
             let swipeLocation = recognizer.location(in: self.editProfTableView)
             if let swipedIndexPath = editProfTableView.indexPathForRow(at: swipeLocation) {
-                if swipedIndexPath.section == 1 && swipedIndexPath.row == 2
-                {
-                    let sharingStoryboard = UIStoryboard(name:"EditProfile", bundle: nil)
-                    let channelItemListVC = sharingStoryboard.instantiateViewController(withIdentifier: "ResetPasswordViewController") as! ResetPasswordViewController
-                    channelItemListVC.navigationController?.isNavigationBarHidden = true
-                    self.present(channelItemListVC, animated: false) { () -> Void in
-                    }
-                }
-                else if (swipedIndexPath.section == 1 && swipedIndexPath.row == 3)
+//                if swipedIndexPath.section == 1 && swipedIndexPath.row == 2
+//                {
+//                    let sharingStoryboard = UIStoryboard(name:"EditProfile", bundle: nil)
+//                    let channelItemListVC = sharingStoryboard.instantiateViewController(withIdentifier: "ResetPasswordViewController") as! ResetPasswordViewController
+//                    channelItemListVC.navigationController?.isNavigationBarHidden = true
+//                    self.present(channelItemListVC, animated: false) { () -> Void in
+//                    }
+//                }
+//                else
+                if (swipedIndexPath.section == 1 && swipedIndexPath.row == 3)
                 {
                     synchronisingTapped()
                 }
@@ -722,8 +727,8 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource
                     }
                     else
                     {
-                        cell.selectionStyle = .default
-                        cell.isUserInteractionEnabled = true
+                        cell.selectionStyle = .none
+                        cell.isUserInteractionEnabled = false
                         
                     }
                     return cell
@@ -821,6 +826,7 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
     
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         activeField = UITextField()
@@ -848,6 +854,7 @@ extension EditProfileViewController: UITableViewDelegate, UITableViewDataSource
             {
                 dataSource![2][0][privateInfoKey] = textField.text
             }
+            
         }
         else if(textField.tag == 101){
             let textStr = textField.text
