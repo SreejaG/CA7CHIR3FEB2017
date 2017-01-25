@@ -1704,7 +1704,7 @@ extension PhotoViewerViewController:UICollectionViewDelegate,UICollectionViewDel
                 else if(progress == 2.0 || progress == 2 || progress == 4.0 || progress == 4){
                     cell.progressView.isHidden = true
                     cell.cloudIcon.isHidden = true
-                    cell.reloadMedia.isHidden = false
+                    cell.reloadMedia.isHidden = true
                 }
                 else{
                     cell.progressView.progress = Float(progress)
@@ -1763,20 +1763,20 @@ extension PhotoViewerViewController:UICollectionViewDelegate,UICollectionViewDel
             self.fullScrenImageView.alpha = 1.0
         }
         
-        if  GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]!.count > indexPath.row
-        {
-            self.mediaIdSelected = Int( GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![indexPath.row][mediaIdKey] as! String)!
-            
-            let progres = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![indexPath.row][progressKey] as! Float
-            if(progres == 2.0 || progres == 2){
-                uploadFailedImagesOnClick(mediaIDClick: GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![indexPath.row][mediaIdKey] as! String)
-            }
-            else if(progres == 4.0 || progres == 4){
-                MappingFailedImagesOnClick(mediaIDClick: GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![indexPath.row][mediaIdKey] as! String)
-            }
-            
-            
-        }
+//        if  GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]!.count > indexPath.row
+//        {
+//            self.mediaIdSelected = Int( GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![indexPath.row][mediaIdKey] as! String)!
+//            
+//            let progres = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![indexPath.row][progressKey] as! Float
+//            if(progres == 2.0 || progres == 2){
+//                uploadFailedImagesOnClick(mediaIDClick: GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![indexPath.row][mediaIdKey] as! String)
+//            }
+//            else if(progres == 4.0 || progres == 4){
+//                MappingFailedImagesOnClick(mediaIDClick: GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![indexPath.row][mediaIdKey] as! String)
+//            }
+//            
+//            
+//        }
     }
     
     func uploadFailedImagesOnClick(mediaIDClick: String)
