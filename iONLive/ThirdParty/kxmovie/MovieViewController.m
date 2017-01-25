@@ -446,13 +446,12 @@ NSBlockOperation *likeOper;
     if([mediaType  isEqual: @"video"])
     {
         [self removeOverlay];
-        durationLabel.text = videoDurationSelected;
-        durationLabel.hidden = false;
-        [glView bringSubviewToFront:durationLabel];
+//        durationLabel.text = videoDurationSelected;
+        durationLabel.hidden = true;
+//        [glView bringSubviewToFront:durationLabel];
         videoProgressBar.hidden = true;
         progressLabel.hidden = true;
         progressLabel.text = @" ";
-        durationLabel.hidden = false;
         scrollViewZoom.alpha = 1.0;
         topView.hidden = false;
         imageVideoView.contentMode = UIViewContentModeScaleAspectFill;
@@ -513,43 +512,43 @@ NSBlockOperation *likeOper;
         progressLabel.text = @" ";
     }
     
-    if(!tapHeartDescViewFlag)
-    {
-        _photoCollectionView.hidden = false;
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            if(indexForSwipe != -1){
-                [_photoCollectionView reloadData];
-                if(screenNumber == 0){
-                    if(indexForSwipe < totalCount){
-                        [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-                    }
-                    else if(indexForSwipe == totalCount){
-                        [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-                        indexForSwipe = indexForSwipe - 1;
-                    }
-                }
-                else{
-                    if(indexForSwipe < [streamORChannelDict count])
-                    {
-                        [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-                    }
-                    else if(indexForSwipe == [streamORChannelDict count]){
-                        [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-                        indexForSwipe = indexForSwipe - 1;
-                    }
-                }
-            }
-        });
-        _bottomConstraintForHeartView.constant = 50;
-        progressBottomConstraint.constant = -25;
-        tapHeartDescViewFlag = true;
-    }
-    else{
+//    if(!tapHeartDescViewFlag)
+//    {
+//        _photoCollectionView.hidden = false;
+//        dispatch_async(dispatch_get_main_queue(), ^(void){
+//            if(indexForSwipe != -1){
+//                [_photoCollectionView reloadData];
+//                if(screenNumber == 0){
+//                    if(indexForSwipe < totalCount){
+//                        [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//                    }
+//                    else if(indexForSwipe == totalCount){
+//                        [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//                        indexForSwipe = indexForSwipe - 1;
+//                    }
+//                }
+//                else{
+//                    if(indexForSwipe < [streamORChannelDict count])
+//                    {
+//                        [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//                    }
+//                    else if(indexForSwipe == [streamORChannelDict count]){
+//                        [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//                        indexForSwipe = indexForSwipe - 1;
+//                    }
+//                }
+//            }
+//        });
+//        _bottomConstraintForHeartView.constant = 50;
+//        progressBottomConstraint.constant = -25;
+//        tapHeartDescViewFlag = true;
+//    }
+//    else{
         _photoCollectionView.hidden = true;
         _bottomConstraintForHeartView.constant = 3;
         progressBottomConstraint.constant = -70;
         tapHeartDescViewFlag = false;
-    }
+//    }
 }
 
 -(void) setUpTransitionForSwipe{
@@ -572,28 +571,28 @@ NSBlockOperation *likeOper;
         progressLabel.hidden = true;
         progressLabel.text = @" ";
         scrollViewZoom.alpha = 1.0;
-        if(indexForSwipe != -1){
-            [_photoCollectionView reloadData];
-            if(screenNumber == 0){
-                if(indexForSwipe < totalCount){
-                    [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-                }
-                else if(indexForSwipe == totalCount){
-                    [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-                    indexForSwipe = indexForSwipe - 1;
-                }
-            }
-            else{
-                if(indexForSwipe < [streamORChannelDict count])
-                {
-                    [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-                }
-                else if(indexForSwipe == [streamORChannelDict count]){
-                    [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-                    indexForSwipe = indexForSwipe - 1;
-                }
-            }
-        }
+//        if(indexForSwipe != -1){
+//            [_photoCollectionView reloadData];
+//            if(screenNumber == 0){
+//                if(indexForSwipe < totalCount){
+//                    [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//                }
+//                else if(indexForSwipe == totalCount){
+//                    [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//                    indexForSwipe = indexForSwipe - 1;
+//                }
+//            }
+//            else{
+//                if(indexForSwipe < [streamORChannelDict count])
+//                {
+//                    [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//                }
+//                else if(indexForSwipe == [streamORChannelDict count]){
+//                    [_photoCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:indexForSwipe - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//                    indexForSwipe = indexForSwipe - 1;
+//                }
+//            }
+//        }
     });
 }
 
@@ -903,7 +902,7 @@ NSBlockOperation *likeOper;
     scrollViewZoom.userInteractionEnabled = true;
     [loadingOverlay removeFromSuperview];
     imageVideoView.userInteractionEnabled = true;
-    _photoCollectionView.userInteractionEnabled = true;
+//    _photoCollectionView.userInteractionEnabled = true;
     heartView.userInteractionEnabled = true;
     _photoCollectionView.alpha = 1.0;
     heartView.alpha = 1.0;
@@ -1373,21 +1372,21 @@ NSBlockOperation *likeOper;
     totalCount = 0;
     tapHeartDescViewFlag = false;
     tapFromDidSelectFlag = false;
-    self.photoCollectionView.delegate = self;
-    self.photoCollectionView.dataSource = self;
+//    self.photoCollectionView.delegate = self;
+//    self.photoCollectionView.dataSource = self;
     
     durationLabel.hidden = true;
     progressLabel.hidden = true;
     scrollViewZoom.alpha = 1.0;
     progressLabel.text = @" ";
     
-    [self.view bringSubviewToFront:self.photoCollectionView];
-    [self.photoCollectionView registerNib:[UINib nibWithNibName:@"photoCell" bundle:nil] forCellWithReuseIdentifier:@"photoViewCell"];
-    UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
-    flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flow.minimumInteritemSpacing = 3;
-    flow.minimumLineSpacing = 3;
-    _photoCollectionView.collectionViewLayout = flow;
+//    [self.view bringSubviewToFront:self.photoCollectionView];
+//    [self.photoCollectionView registerNib:[UINib nibWithNibName:@"photoCell" bundle:nil] forCellWithReuseIdentifier:@"photoViewCell"];
+//    UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
+//    flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    flow.minimumInteritemSpacing = 3;
+//    flow.minimumLineSpacing = 3;
+//    _photoCollectionView.collectionViewLayout = flow;
     
     profilePicture.layer.cornerRadius = profilePicture.frame.size.width/2;
     profilePicture.layer.masksToBounds = YES;
@@ -3011,159 +3010,161 @@ NSBlockOperation *likeOper;
 #pragma mark : Collection View Delegates
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (screenNumber == 1 || screenNumber == 2)
-    {
-        if ([streamORChannelDict count] > 0)
-        {
-            return [streamORChannelDict count];
-        }
-        else{
-            return 0;
-        }
-    }
-    else if(screenNumber == 0){
-        if (totalCount > 0)
-        {
-            return totalCount;
-        }
-        else{
-            return 0;
-        }
-    }
+//    if (screenNumber == 1 || screenNumber == 2)
+//    {
+//        if ([streamORChannelDict count] > 0)
+//        {
+//            return [streamORChannelDict count];
+//        }
+//        else{
+//            return 0;
+//        }
+//    }
+//    else if(screenNumber == 0){
+//        if (totalCount > 0)
+//        {
+//            return totalCount;
+//        }
+//        else{
+//            return 0;
+//        }
+//    }
     return 0;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier = @"photoViewCell";
-    NSString * thumbImageKey = @"thumbImage";
+//    NSString * thumbImageKey = @"thumbImage";
     photoViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath]  ;
-    
-    cell.layer.shouldRasterize = true;
-    cell.layer.rasterizationScale = [[UIScreen mainScreen]scale];
-    
-    if(indexPath.row == indexForSwipe)
-    {
-        cell.layer.borderWidth = 3;
-        cell.layer.borderColor = [UIColor colorWithRed: 44.0/255.0 green:214.0/255.0 blue:229.0/255.0 alpha:0.7].CGColor;
-    }
-    else{
-        cell.layer.borderWidth = 0;
-        cell.layer.borderColor =[UIColor clearColor].CGColor;
-    }
-    if (screenNumber == 1 || screenNumber == 2)
-    {
-        cell.thumbImageView.image = streamORChannelDict[indexPath.row][thumbImageKey];
-        if([streamORChannelDict[indexPath.row][@"mediaType"] isEqualToString:@"video"])
-        {
-            cell.videoIconImgView.hidden = false;
-        }
-        else{
-            cell.videoIconImgView.hidden = true;
-        }
-    }
-    else if (screenNumber == 0){
-        cell.thumbImageView.image = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexPath.row][thumbImageKey];
-        if([GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexPath.row][@"gcs_object_type"] isEqualToString:@"video"])
-        {
-            cell.videoIconImgView.hidden = false;
-        }
-        else{
-            cell.videoIconImgView.hidden = true;
-        }
-    }
-    
+//    
+//    cell.layer.shouldRasterize = true;
+//    cell.layer.rasterizationScale = [[UIScreen mainScreen]scale];
+//    
+//    if(indexPath.row == indexForSwipe)
+//    {
+//        cell.layer.borderWidth = 3;
+//        cell.layer.borderColor = [UIColor colorWithRed: 44.0/255.0 green:214.0/255.0 blue:229.0/255.0 alpha:0.7].CGColor;
+//    }
+//    else{
+//        cell.layer.borderWidth = 0;
+//        cell.layer.borderColor =[UIColor clearColor].CGColor;
+//    }
+//    if (screenNumber == 1 || screenNumber == 2)
+//    {
+//        cell.thumbImageView.image = streamORChannelDict[indexPath.row][thumbImageKey];
+//        if([streamORChannelDict[indexPath.row][@"mediaType"] isEqualToString:@"video"])
+//        {
+//            cell.videoIconImgView.hidden = false;
+//        }
+//        else{
+//            cell.videoIconImgView.hidden = true;
+//        }
+//    }
+//    else if (screenNumber == 0){
+//        cell.thumbImageView.image = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexPath.row][thumbImageKey];
+//        if([GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexPath.row][@"gcs_object_type"] isEqualToString:@"video"])
+//        {
+//            cell.videoIconImgView.hidden = false;
+//        }
+//        else{
+//            cell.videoIconImgView.hidden = true;
+//        }
+//    }
+//    
     return cell;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(50, 46);
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return CGSizeMake(50, 46);
+//}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    scrollViewZoom.zoomScale = 1.0;
-    scrollViewZoom.minimumZoomScale = 1.0;
-    scrollViewZoom.maximumZoomScale = 30.0;
-    if(indexForSwipe != (int)indexPath.row){
-        [self checkVideoStatus];
-        orgIndex = -11;
-        tapFromDidSelectFlag = false;
-        indexForSwipe = (int)indexPath.row;
-        [self removeOverlay];
-        [self showOverlay1];
-        [self setSelectionForPhotoView];
-        dispatch_async(dispatch_get_main_queue(),^{
-            progressLabel.hidden = true;
-            progressLabel.text = @" ";
-            videoProgressBar.hidden = true;
-            scrollViewZoom.alpha = 1.0;
-            [self.photoCollectionView reloadData];
-        });
-    }
+//    
+//    scrollViewZoom.zoomScale = 1.0;
+//    scrollViewZoom.minimumZoomScale = 1.0;
+//    scrollViewZoom.maximumZoomScale = 30.0;
+//    if(indexForSwipe != (int)indexPath.row){
+//        [self checkVideoStatus];
+//        orgIndex = -11;
+//        tapFromDidSelectFlag = false;
+//        indexForSwipe = (int)indexPath.row;
+//        [self removeOverlay];
+//        [self showOverlay1];
+//        [self setSelectionForPhotoView];
+//        dispatch_async(dispatch_get_main_queue(),^{
+//            progressLabel.hidden = true;
+//            progressLabel.text = @" ";
+//            videoProgressBar.hidden = true;
+//            scrollViewZoom.alpha = 1.0;
+//            [self.photoCollectionView reloadData];
+//        });
+//    }
 }
--(void) setSelectionForPhotoView
-{
-    tapFromDidSelectFlag = true;
-    UIImage *VideoImageUrlChk;
-    
-    if(screenNumber == 0)
-    {
-        mediaTypeChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"gcs_object_type"];
-        mediaIdChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"media_detail_id"];
-        NSString *createdTime = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"created_time_stamp"];
-        timeDiffChk = [[FileManagerViewController sharedInstance] getTimeDifferenceWithDateStr:createdTime];
-        likeCountStrChk = @"0";
-        notifTypeChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"notification_type"];
-        VideoImageUrlChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"thumbImage"];
-        videoDurationChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"video_duration"];
-        [self setGUIChanges:mediaTypeChk mediaId:mediaIdChk timeDiff:timeDiffChk likeCountStr:likeCountStrChk notifType:notifTypeChk VideoImageUrl:VideoImageUrlChk videoDuration:videoDurationChk];
-    }
-    else
-    {
-        mediaTypeChk = streamORChannelDict[indexForSwipe][@"mediaType"];
-        mediaIdChk = streamORChannelDict[indexForSwipe][@"mediaId"];
-        NSString *createdTime = streamORChannelDict[indexForSwipe][@"createdTime"];
-        timeDiffChk = [[FileManagerViewController sharedInstance] getTimeDifferenceWithDateStr:createdTime];
-        likeCountStrChk = @"";
-        notifTypeChk = streamORChannelDict[indexForSwipe][@"notification"];
-        VideoImageUrlChk = streamORChannelDict[indexForSwipe][@"mediaUrl"];
-        videoDurationChk = streamORChannelDict[indexForSwipe][@"video_duration"];
-        SetUpView *setUpObj = [[SetUpView alloc]init];
-        if(screenNumber == 1){
-            if (screenNumber == 1)
-            {
-                [activityIndicatorProfile removeFromSuperview];
-                activityIndicatorProfile = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-                activityIndicatorProfile.alpha = 1.0;
-                [heartView addSubview:activityIndicatorProfile];
-                activityIndicatorProfile.frame =  CGRectMake(profilePicture.frame.origin.x + 5 , profilePicture.frame.origin.y + 7, 30.0,30.0);
-                profilePicture.alpha = 0.2;
-                activityIndicatorProfile.color = [UIColor blueColor];
-                [activityIndicatorProfile stopAnimating];
-                [activityIndicatorProfile startAnimating];//to start animating
-            }
-            
-            [profileOper cancel];
-            profileOper = [NSBlockOperation blockOperationWithBlock:^{
-                [setUpObj getProfileImageSelectedIndexWithUserIdKey:[NSString stringWithFormat:@"%@",streamORChannelDict[indexForSwipe][@"user_name"]] objects:obj1 operObj:profileOper];
-            }];
-            [mainQueue addOperation:profileOper];
-            channelName.text = streamORChannelDict[indexForSwipe][@"channel_name"];
-            userName.text = [NSString stringWithFormat:@"@%@",streamORChannelDict[indexForSwipe][@"user_name"]];
-            channelIdSelected = streamORChannelDict[indexForSwipe][@"ch_detail_id"];
-        }
-        if(screenNumber == 1 || screenNumber == 2){
-            likeTapFlag = false;
-            [likeOper cancel];
-            likeOper = [NSBlockOperation blockOperationWithBlock:^{
-                [setUpObj getLikeCountWithMediaType:mediaTypeChk mediaId:mediaIdChk Objects:obj1 operObjs:likeOper];
-            }];
-            [mainQueue addOperation:likeOper];
-        }
-        
-        [self setGUIChanges:mediaTypeChk mediaId:mediaIdChk timeDiff:timeDiffChk likeCountStr:likeCountStrChk notifType:notifTypeChk VideoImageUrl:VideoImageUrlChk videoDuration:videoDurationChk];
-    }
-}
+//-(void) setSelectionForPhotoView
+//{
+//    tapFromDidSelectFlag = true;
+//    UIImage *VideoImageUrlChk;
+//    
+//    if(screenNumber == 0)
+//    {
+//        mediaTypeChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"gcs_object_type"];
+//        mediaIdChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"media_detail_id"];
+//        NSString *createdTime = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"created_time_stamp"];
+//        timeDiffChk = [[FileManagerViewController sharedInstance] getTimeDifferenceWithDateStr:createdTime];
+//        likeCountStrChk = @"0";
+//        notifTypeChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"notification_type"];
+//        VideoImageUrlChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"thumbImage"];
+//        videoDurationChk = GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelIdSelected][indexForSwipe][@"video_duration"];
+//        [self setGUIChanges:mediaTypeChk mediaId:mediaIdChk timeDiff:timeDiffChk likeCountStr:likeCountStrChk notifType:notifTypeChk VideoImageUrl:VideoImageUrlChk videoDuration:videoDurationChk];
+//    }
+//    else
+//    {
+//        mediaTypeChk = streamORChannelDict[indexForSwipe][@"mediaType"];
+//        mediaIdChk = streamORChannelDict[indexForSwipe][@"mediaId"];
+//        NSString *createdTime = streamORChannelDict[indexForSwipe][@"createdTime"];
+//        timeDiffChk = [[FileManagerViewController sharedInstance] getTimeDifferenceWithDateStr:createdTime];
+//        likeCountStrChk = @"";
+//        notifTypeChk = streamORChannelDict[indexForSwipe][@"notification"];
+//        VideoImageUrlChk = streamORChannelDict[indexForSwipe][@"mediaUrl"];
+//        videoDurationChk = streamORChannelDict[indexForSwipe][@"video_duration"];
+//        SetUpView *setUpObj = [[SetUpView alloc]init];
+//        if(screenNumber == 1){
+//            if (screenNumber == 1)
+//            {
+//                [activityIndicatorProfile removeFromSuperview];
+//                activityIndicatorProfile = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//                activityIndicatorProfile.alpha = 1.0;
+//                [heartView addSubview:activityIndicatorProfile];
+//                activityIndicatorProfile.frame =  CGRectMake(profilePicture.frame.origin.x + 5 , profilePicture.frame.origin.y + 7, 30.0,30.0);
+//                profilePicture.alpha = 0.2;
+//                activityIndicatorProfile.color = [UIColor blueColor];
+//                [activityIndicatorProfile stopAnimating];
+//                [activityIndicatorProfile startAnimating];//to start animating
+//            }
+//            
+//            [profileOper cancel];
+//            profileOper = [NSBlockOperation blockOperationWithBlock:^{
+//                [setUpObj getProfileImageSelectedIndexWithUserIdKey:[NSString stringWithFormat:@"%@",streamORChannelDict[indexForSwipe][@"user_name"]] objects:obj1 operObj:profileOper];
+//            }];
+//            [mainQueue addOperation:profileOper];
+//            channelName.text = streamORChannelDict[indexForSwipe][@"channel_name"];
+//            userName.text = [NSString stringWithFormat:@"@%@",streamORChannelDict[indexForSwipe][@"user_name"]];
+//            channelIdSelected = streamORChannelDict[indexForSwipe][@"ch_detail_id"];
+//        }
+//        if(screenNumber == 1 || screenNumber == 2){
+//            likeTapFlag = false;
+//            [likeOper cancel];
+//            likeOper = [NSBlockOperation blockOperationWithBlock:^{
+//                [setUpObj getLikeCountWithMediaType:mediaTypeChk mediaId:mediaIdChk Objects:obj1 operObjs:likeOper];
+//            }];
+//            [mainQueue addOperation:likeOper];
+//        }
+//        
+//        [self setGUIChanges:mediaTypeChk mediaId:mediaIdChk timeDiff:timeDiffChk likeCountStr:likeCountStrChk notifType:notifTypeChk VideoImageUrl:VideoImageUrlChk videoDuration:videoDurationChk];
+//    }
+
+//}
 
 @end
