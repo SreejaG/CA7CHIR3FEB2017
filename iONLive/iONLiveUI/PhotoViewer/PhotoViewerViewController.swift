@@ -1483,7 +1483,7 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
                     DispatchQueue.main.async {
                         self.photoThumpCollectionView.alpha = 1.0
                         self.removeOverlay()
-                        self.videoDurationLabel.isHidden = false
+                        self.videoDurationLabel.isHidden = true
                         self.view.bringSubview(toFront: self.videoDurationLabel)
                         self.videoDurationLabel.text = ""
                         if let vDuration =  GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[self.archiveChanelId]![indexpaths][videoDurationKey]

@@ -680,6 +680,7 @@ extension ChannelItemListViewController : UICollectionViewDataSource,UICollectio
                 {
                     cell.videoDurationLabel.text = vDuration as? String
                 }
+                cell.videoDurationLabel.isHidden = true
             }
             else{
                 cell.videoView.isHidden = true

@@ -324,7 +324,7 @@ extension MyChannelItemDetailsViewController : UICollectionViewDataSource,UIColl
             if mediaType == "video"
             {
                 cell.videoPlayIcon.isHidden = false
-                cell.videoDurationLabel.isHidden = false
+                cell.videoDurationLabel.isHidden = true
                 if let vDuration =  GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[channelId]![indexPath.row][videoDurationKey]
                 {
                     cell.videoDurationLabel.text = vDuration as? String

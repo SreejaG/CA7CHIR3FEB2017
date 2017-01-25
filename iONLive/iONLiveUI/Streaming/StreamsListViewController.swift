@@ -1431,7 +1431,7 @@ extension StreamsListViewController:UICollectionViewDataSource,UICollectionViewD
                     if type == "video"
                     {
                         let vDuration  = mediaAndLiveArray[indexPath.row][videoDurationKey] as! String
-                        cell.liveStatusLabel.isHidden = false
+                        cell.liveStatusLabel.isHidden = true
                         cell.liveStatusLabel.text = vDuration
                         cell.liveNowIcon.isHidden = false
                         cell.liveNowIcon.image = UIImage(named: "Live_now_off_mode")

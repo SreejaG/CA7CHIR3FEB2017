@@ -673,7 +673,7 @@ extension OtherChannelViewController : UICollectionViewDataSource,UICollectionVi
                 if mediaType == "video"
                 {
                     let vDuration  = SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPath.row][videoDurationKey] as! String
-                    cell.detailLabel.isHidden = false
+                    cell.detailLabel.isHidden = true
                     cell.detailLabel.text = vDuration
                     cell.videoView.isHidden = false
                     cell.videoView.image = UIImage(named: "Live_now_off_mode")
