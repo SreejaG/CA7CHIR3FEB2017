@@ -597,7 +597,8 @@ NSBlockOperation *likeOper;
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    if (scrollView.zoomScale < 1.0) {
+    if (scrollView.zoomScale <= 1.0) {
+        scrollViewZoom.zoomScale = 1.0;
         scrollView.minimumZoomScale = 1.0;
     }
 }
