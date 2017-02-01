@@ -597,10 +597,6 @@ NSBlockOperation *likeOper;
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    if (scrollView.zoomScale <= 1.0) {
-        scrollViewZoom.zoomScale = 1.0;
-        scrollView.minimumZoomScale = 1.0;
-    }
 }
 
 -(void) scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view{
@@ -615,6 +611,9 @@ NSBlockOperation *likeOper;
 }
 
 -(void) scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale{
+    if (scrollViewZoom.zoomScale <= 1.0) {
+        scrollViewZoom.zoomScale = 1.0;
+    }
 }
 
 -(void) setGuiBasedOnOrientation
