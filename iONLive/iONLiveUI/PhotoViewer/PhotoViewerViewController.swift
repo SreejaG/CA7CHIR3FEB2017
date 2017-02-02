@@ -142,7 +142,7 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
                     self.photoThumpCollectionView.reloadData()
                 }
                 if(GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]!.count > totalCount){
-                    if(totalCount < 9 && totalCount > 0){
+                    if(totalCount < 8 && totalCount > 0){
                         DispatchQueue.main.async {
                             self.customView.stopAnimationg()
                             self.customView.removeFromSuperview()
@@ -925,7 +925,7 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
             totalCount = totalCount - 1
             archiveMediaCount = archiveMediaCount - 1
             if(GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]!.count > totalCount){
-                if(totalCount < 10){
+                if(totalCount < 8){
                     DispatchQueue.main.async {
                         self.customView.stopAnimationg()
                         self.customView.removeFromSuperview()
