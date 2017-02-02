@@ -377,6 +377,10 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
     
     func orientaionChanged(notification:NSNotification)
     {
+        if totalCount <= 0
+        {
+            self.Orgimage = nil
+        }
         var orientedImage = Orgimage
         DispatchQueue.main.async {
             if(self.Orgimage != nil && self.totalCount > 0){
@@ -637,7 +641,7 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
                 {
                     if self.downloadingFlag == false
                     {
-                        if totalCount > 9
+                        if totalCount > 8
                         {
                             DispatchQueue.main.async {
                                 let attributes: UICollectionViewLayoutAttributes = self.photoThumpCollectionView.layoutAttributesForItem(at: IndexPath(row: self.totalCount - 1, section: 0))!
@@ -708,7 +712,6 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
             {
                 if totalCount > 0
                 {
-                    playIconInFullView.isHidden = true
                     swipeFlag = true
                     self.removeOverlay()
                     fullScrenImageView.isUserInteractionEnabled = true
@@ -721,7 +724,8 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
                             if(selectedItem < totalCount - 1)
                             {
                                 downloadingStartedFlag = false
-                                
+                                playIconInFullView.isHidden = true
+
                                 if (playHandleflag == 1)
                                 {
                                     playHandleflag = 0
@@ -762,7 +766,8 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
                             if(selectedItem != 0)
                             {
                                 downloadingStartedFlag = false
-                                
+                                playIconInFullView.isHidden = true
+
                                 if (playHandleflag == 1)
                                 {
                                     playHandleflag = 0
@@ -958,6 +963,7 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
                     }
                     else{
                         DispatchQueue.main.async {
+                            self.mediaTimeLabel.text = ""
                             self.showOverlay()
                             self.customView.stopAnimationg()
                             self.customView.removeFromSuperview()
