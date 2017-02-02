@@ -708,6 +708,7 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
             {
                 if totalCount > 0
                 {
+                    playIconInFullView.isHidden = true
                     swipeFlag = true
                     self.removeOverlay()
                     fullScrenImageView.isUserInteractionEnabled = true
