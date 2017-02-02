@@ -593,7 +593,7 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
         totalCount = filteredData.count
         if GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]!.count > 0
         {
-            let dict =  GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![0]
+            let dict =  GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]![selectedItem]
             self.downloadFullImageWhenTapThumb(imageDict: dict, indexpaths: selectedItem,gestureIdentifier:0)
         }
         else{
