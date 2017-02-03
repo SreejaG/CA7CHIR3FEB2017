@@ -170,7 +170,7 @@ int playHandleFlag = 0;
 int orientationFlagForFullScreenMediaFlag;
 int totalCount;
 
-NSString *userId,*accessToken,*mediaDetailId,*notificationType,*channelIdSelected,*mediaTypeSelected,*notificationTypes,*mediaUrlForReplay, *videoDurationSelected;
+NSString *userId,*accessToken,*mediaDetailId,*notificationType,*channelIdSelected,*mediaTypeSelected,*notificationTypes,*mediaUrlForReplay, *videoDurationSelected,*prevMediaTypeSelected;
 NSString *mediaURLChk,*mediaTypeChk,*mediaIdChk,*timeDiffChk,*likeCountStrChk,*notifTypeChk,*videoDurationChk;
 NSString *likeFlag;
 
@@ -188,6 +188,7 @@ UIActivityIndicatorView *activityIndicatorProfile;
 bool tapHeartDescViewFlag;
 bool tapFromDidSelectFlag;
 BOOL likeTapFlag;
+BOOL oriFlag;
 
 AVPlayerViewController *_AVPlayerViewController;
 
@@ -440,11 +441,15 @@ NSBlockOperation *likeOper;
     notificationTypes = notifType;
     notificationType = @"LIKE";
     mediaDetailId = mediaId;
+    if (mediaTypeSelected != nil) {
+        prevMediaTypeSelected = mediaTypeSelected;
+    }
     mediaTypeSelected = mediaType;
     videoDurationSelected = videoDuration;
     
     if([mediaType  isEqual: @"video"])
     {
+        oriFlag = false;
         [self removeOverlay];
 //        durationLabel.text = videoDurationSelected;
         durationLabel.hidden = true;
@@ -482,6 +487,7 @@ NSBlockOperation *likeOper;
         durationLabel.hidden = true;
         scrollViewZoom.alpha = 1.0;
         [playIconView removeFromSuperview];
+        oriFlag = false;
         [self setUpImageVideo:mediaType mediaUrl:mediaUrlForReplay mediaDetailId:mediaDetailId];
     }
 }
@@ -730,6 +736,7 @@ NSBlockOperation *likeOper;
     NSString *savingPath = [NSString stringWithFormat:@"%@/%@full",parentPathStr,mediaDetailId];
     bool fileExistFlag = [[FileManagerViewController sharedInstance] fileExistWithMediaPath:savingPath];
     if(fileExistFlag == true){
+        oriFlag = false;
         [self removeOverlay];
         mediaImage = [[FileManagerViewController sharedInstance] getImageFromFilePathWithMediaPath:savingPath];
         [self setGuiBasedOnOrientation];
@@ -739,6 +746,12 @@ NSBlockOperation *likeOper;
         }
     }
     else{
+        if([prevMediaTypeSelected isEqual:@"video"]){
+            oriFlag = true;
+        }
+        else{
+            oriFlag = false;
+        }
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             NSURL *url = [self convertStringToUrl:mediaUrl];
             NSData *data = [[NSData alloc] initWithContentsOfURL:url];
@@ -810,8 +823,8 @@ NSBlockOperation *likeOper;
 }
 
 -(void)onHide:(NSTimer *)timer {
+    oriFlag = false;
     [self removeOverlay];
-    
     if((indexForSwipe != orgIndex) && (![mediaTypeSelected  isEqual: @"video"]) && (!tapFromDidSelectFlag))
     {
         [self setUpTransitionForSwipe];
@@ -1381,6 +1394,7 @@ NSBlockOperation *likeOper;
     progressLabel.hidden = true;
     scrollViewZoom.alpha = 1.0;
     progressLabel.text = @" ";
+    oriFlag = false;
     
 //    [self.view bringSubviewToFront:self.photoCollectionView];
 //    [self.photoCollectionView registerNib:[UINib nibWithNibName:@"photoCell" bundle:nil] forCellWithReuseIdentifier:@"photoViewCell"];
@@ -1433,7 +1447,15 @@ NSBlockOperation *likeOper;
 
 - (void) orientationChangedForFullscreenMedia:(NSNotification *)note
 {
-    [self setGuiBasedOnOrientation];
+    if(oriFlag){
+        if([prevMediaTypeSelected isEqual:@"video"])
+        {
+            [self setGuiBasedOnOrientationForVideo];
+        }
+    }
+    else{
+        [self setGuiBasedOnOrientation];
+    }
 }
 
 -(int) getFullscreenMediaOrientation
