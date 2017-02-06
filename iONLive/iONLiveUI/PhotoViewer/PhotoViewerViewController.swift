@@ -716,6 +716,7 @@ class PhotoViewerViewController: UIViewController,UIGestureRecognizerDelegate,UR
         if (self.lastContentOffset.x > scrollView.contentOffset.x) {
             if totalCount > 0
             {
+                swipeFlag = false
                 if(totalCount < GlobalChannelToImageMapping.sharedInstance.GlobalChannelImageDict[archiveChanelId]!.count)
                 {
                     if self.downloadingFlag == false
@@ -1793,6 +1794,7 @@ extension PhotoViewerViewController:UICollectionViewDelegate,UICollectionViewDel
                 if(swipeFlag){
                     photoThumpCollectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: false)
                 }
+                
                 cell.layer.borderWidth = 2;
                 cell.layer.borderColor = UIColor(red: 44.0/255.0, green: 214.0/255.0, blue: 229.0/255.0, alpha: 0.7).cgColor
             }
