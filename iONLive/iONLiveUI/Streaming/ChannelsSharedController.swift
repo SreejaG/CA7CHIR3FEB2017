@@ -1,7 +1,7 @@
 
 import UIKit
 
-class ChannelsSharedController: UIViewController  {
+class ChannelsSharedController: UIViewController,UIScrollViewDelegate  {
     var mediaShared:[[String:Any]] = [[String:Any]]()
     var loadingOverlay: UIView?
     var refreshControl:UIRefreshControl!
@@ -17,6 +17,7 @@ class ChannelsSharedController: UIViewController  {
     var refreshAlert : UIAlertController = UIAlertController()
     var NoDatalabel : UILabel = UILabel()
     var timer : Timer = Timer()
+    var customViewForStreamChannelFlag : Bool = false
     var customViewForStreamChannel = CustomInfiniteIndicator()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,7 @@ class ChannelsSharedController: UIViewController  {
         let startcount : Int = UserDefaults.standard.value(forKey: "streamChannelCount") as! Int
         if ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count >= startcount
         {
+            customViewForStreamChannelFlag = false
             self.NoDatalabel.removeFromSuperview()
             self.removeOverlay()
             self.refreshControl.addTarget(self, action: #selector(ChannelsSharedController.pullToRefresh), for: UIControlEvents.valueChanged)
@@ -94,6 +96,7 @@ class ChannelsSharedController: UIViewController  {
             self.ChannelSharedTableView.alwaysBounceVertical = true
         }
         else{
+            customViewForStreamChannelFlag = true
             self.NoDatalabel.removeFromSuperview()
             self.refreshControl.endRefreshing()
             self.refreshControl.removeTarget(self, action: #selector(ChannelsSharedController.pullToRefresh), for: UIControlEvents.valueChanged)
@@ -101,7 +104,7 @@ class ChannelsSharedController: UIViewController  {
                 self.removeOverlay()
                 self.customViewForStreamChannel.stopAnimationg()
                 self.customViewForStreamChannel.removeFromSuperview()
-                self.customViewForStreamChannel = CustomInfiniteIndicator(frame: CGRect(x:(self.ChannelSharedTableView.layer.frame.width/2 - 20), y:(self.ChannelSharedTableView.layer.frame.height - 120), width:40, height:40))
+                self.customViewForStreamChannel = CustomInfiniteIndicator(frame: CGRect(x:(self.ChannelSharedTableView.layer.frame.width/2 - 20), y:(self.ChannelSharedTableView.contentSize.height + 20), width:40, height:40))
                 self.ChannelSharedTableView.addSubview(self.customViewForStreamChannel)
                 self.customViewForStreamChannel.startAnimating()
             }
@@ -150,6 +153,7 @@ class ChannelsSharedController: UIViewController  {
             }
         }
     }
+    
     
     // channel delete push notification handler
     func channelDeletionPushNotification(info:  [String : AnyObject])
@@ -351,7 +355,7 @@ class ChannelsSharedController: UIViewController  {
     func updateChannelList(notif : NSNotification)
     {
         UserDefaults.standard.set(ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count, forKey: "streamChannelCount")
-        
+        customViewForStreamChannelFlag = false
         DispatchQueue.main.async {
             self.customViewForStreamChannel.stopAnimationg()
             self.customViewForStreamChannel.removeFromSuperview()
@@ -547,6 +551,13 @@ extension ChannelsSharedController:UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
+            if(self.customViewForStreamChannelFlag){
+                    self.customViewForStreamChannel.stopAnimationg()
+                    self.customViewForStreamChannel.removeFromSuperview()
+                    self.customViewForStreamChannel = CustomInfiniteIndicator(frame: CGRect(x:(self.ChannelSharedTableView.layer.frame.width/2 - 20), y:(self.ChannelSharedTableView.contentSize.height + 20), width:40, height:40))
+                    self.ChannelSharedTableView.addSubview(self.customViewForStreamChannel)
+                    self.customViewForStreamChannel.startAnimating()
+            }
             self.removeOverlay()
         }
     }
