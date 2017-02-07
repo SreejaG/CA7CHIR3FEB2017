@@ -172,6 +172,7 @@ class ChannelSharedListAPI: NSObject {
             }
             if(dummy.count > 0)
             {
+                
                 dummy.sort(by: { p1, p2 in
                     
                     let time1 = p1[timeStamp] as! String
@@ -179,7 +180,7 @@ class ChannelSharedListAPI: NSObject {
                     return time1 > time2
                 })
             }
-            
+            UserDefaults.standard.set(dummy.count, forKey: "streamChannelCount")
             for element in dummy
             {
                 dataSource.append(element)
@@ -188,12 +189,14 @@ class ChannelSharedListAPI: NSObject {
             UserDefaults.standard.set(mediaShared, forKey: "Shared")
             
             if(dataSource.count > 0){
+               
                 operation2  = BlockOperation (block: {
                     self.downloadMediaFromGCS()
                 })
                 self.operationQueue.addOperation(operation2)
             }
             else{
+//                UserDefaults.standard.set(dataSource.count, forKey: "streamChannelCount")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PullToRefreshSharedChannelList"), object:"failure")
             }
         }
@@ -251,7 +254,7 @@ class ChannelSharedListAPI: NSObject {
                     profileImage = UIImage(named: "dummyUser")
                 }
                 
-                if(dataSource.count > 0)
+                if(dataSource.count > 0 && i < dataSource.count)
                 {
                     if let media1 = dataSource[i][mediaImageKey]
                     {
@@ -292,7 +295,7 @@ class ChannelSharedListAPI: NSObject {
             }
             else
             {
-                if(dataSource.count > 0)
+                if(dataSource.count > 0 && i < dataSource.count)
                 {
                     pullToRefreshSource.append([ch_channelIdkey:self.dataSource[i][ch_channelIdkey]!,ch_channelNameKey:self.dataSource[i][ch_channelNameKey]!,sharedMediaCount:self.dataSource[i][sharedMediaCount]!,timeStamp:self.dataSource[i][timeStamp]!,usernameKey:self.dataSource[i][usernameKey]!,liveStreamStatus:self.dataSource[i][liveStreamStatus]!,streamTockenKey:self.dataSource[i][streamTockenKey]!,profileImageKey:profileImage!,mediaImageKey:mediaImage!,subChannelIdKey:self.dataSource[i][subChannelIdKey]!])
                 }

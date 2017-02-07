@@ -17,6 +17,7 @@ class ChannelsSharedController: UIViewController  {
     var refreshAlert : UIAlertController = UIAlertController()
     var NoDatalabel : UILabel = UILabel()
     var timer : Timer = Timer()
+    var customViewForStreamChannel = CustomInfiniteIndicator()
     override func viewDidLoad() {
         super.viewDidLoad()
         newShareAvailabellabel.layer.cornerRadius = 5
@@ -49,7 +50,6 @@ class ChannelsSharedController: UIViewController  {
         {
             DispatchQueue.main.async {
                 self.removeOverlay()
-                
                 if (GlobalStreamList.sharedInstance.GlobalStreamDataSource.count == 0)
                 {
                     self.removeOverlay()
@@ -83,10 +83,29 @@ class ChannelsSharedController: UIViewController  {
     func initialise()
     {
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.addTarget(self, action: #selector(ChannelsSharedController.pullToRefresh), for: UIControlEvents.valueChanged)
-        self.ChannelSharedTableView.addSubview(self.refreshControl)
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.ChannelSharedTableView.alwaysBounceVertical = true
+        let startcount : Int = UserDefaults.standard.value(forKey: "streamChannelCount") as! Int
+        if ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count >= startcount
+        {
+            self.NoDatalabel.removeFromSuperview()
+            self.removeOverlay()
+            self.refreshControl.addTarget(self, action: #selector(ChannelsSharedController.pullToRefresh), for: UIControlEvents.valueChanged)
+            self.ChannelSharedTableView.addSubview(self.refreshControl)
+            self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+            self.ChannelSharedTableView.alwaysBounceVertical = true
+        }
+        else{
+            self.NoDatalabel.removeFromSuperview()
+            self.refreshControl.endRefreshing()
+            self.refreshControl.removeTarget(self, action: #selector(ChannelsSharedController.pullToRefresh), for: UIControlEvents.valueChanged)
+            DispatchQueue.main.async {
+                self.removeOverlay()
+                self.customViewForStreamChannel.stopAnimationg()
+                self.customViewForStreamChannel.removeFromSuperview()
+                self.customViewForStreamChannel = CustomInfiniteIndicator(frame: CGRect(x:(self.ChannelSharedTableView.layer.frame.width/2 - 20), y:(self.ChannelSharedTableView.layer.frame.height - 120), width:40, height:40))
+                self.ChannelSharedTableView.addSubview(self.customViewForStreamChannel)
+                self.customViewForStreamChannel.startAnimating()
+            }
+        }
         
         let SharedChannelList = Notification.Name("SharedChannelList")
         NotificationCenter.default.addObserver(self, selector:#selector(ChannelsSharedController.updateChannelList(notif:)), name: SharedChannelList, object: nil)
@@ -101,19 +120,33 @@ class ChannelsSharedController: UIViewController  {
         NotificationCenter.default.addObserver(self, selector:#selector(ChannelsSharedController.removeOverlay), name: RemoveOverlay, object: nil)
         
         newShareAvailabellabel.isHidden = true
-        if (ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count == 0)
+        if startcount > 0
         {
-            DispatchQueue.main.async {
-                self.showOverlay()
+            self.NoDatalabel.removeFromSuperview()
+            if (ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count == 0)
+            {
+//                DispatchQueue.main.async {
+//                    self.showOverlay()
+//                }
+                let userId = UserDefaults.standard.value(forKey: userLoginIdKey) as! String
+                let accessToken = UserDefaults.standard.value(forKey: userAccessTockenKey) as! String
+                ChannelSharedListAPI.sharedInstance.getChannelSharedDetails(userName: userId, token: accessToken)
+            }else
+            {
+                DispatchQueue.main.async {
+                    self.ChannelSharedTableView.reloadData()
+                    self.removeOverlay()
+                }
             }
-            let userId = UserDefaults.standard.value(forKey: userLoginIdKey) as! String
-            let accessToken = UserDefaults.standard.value(forKey: userAccessTockenKey) as! String
-            ChannelSharedListAPI.sharedInstance.getChannelSharedDetails(userName: userId, token: accessToken)
-        }else
-        {
-            DispatchQueue.main.async {
-                self.ChannelSharedTableView.reloadData()
-                self.removeOverlay()
+        }
+        else{
+            if (ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count == 0)
+            {
+                self.NoDatalabel.removeFromSuperview()
+                self.NoDatalabel = UILabel(frame: CGRect(x:((self.view.frame.width/2) - 100), y:((self.view.frame.height/2) - 35), width:200, height:70))
+                self.NoDatalabel.textAlignment = NSTextAlignment.center
+                self.NoDatalabel.text = "No Channel Available"
+                self.view.addSubview(self.NoDatalabel)
             }
         }
     }
@@ -132,6 +165,8 @@ class ChannelsSharedController: UIViewController  {
             }
             else
             {
+                UserDefaults.standard.set(ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count, forKey: "streamChannelCount")
+
                 self.NoDatalabel.removeFromSuperview()
             }
             self.ChannelSharedTableView.reloadData()
@@ -173,6 +208,12 @@ class ChannelsSharedController: UIViewController  {
                 let itemToMove = ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource[index]
                 ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.remove(at: index)
                 ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.insert(itemToMove, at: 0)
+                 ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.sort(by: { p1, p2 in
+                    
+                    let time1 = p1[liveStreamStatus] as! String
+                    let time2 = p2[liveStreamStatus] as! String
+                    return time1 > time2
+                })
                 self.ChannelSharedTableView.reloadData()
             }
         }
@@ -309,6 +350,18 @@ class ChannelsSharedController: UIViewController  {
     
     func updateChannelList(notif : NSNotification)
     {
+        UserDefaults.standard.set(ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count, forKey: "streamChannelCount")
+        
+        DispatchQueue.main.async {
+            self.customViewForStreamChannel.stopAnimationg()
+            self.customViewForStreamChannel.removeFromSuperview()
+            self.refreshControl.endRefreshing()
+            self.refreshControl.removeTarget(self, action: #selector(ChannelsSharedController.pullToRefresh), for: UIControlEvents.valueChanged)
+            self.refreshControl.addTarget(self, action: #selector(ChannelsSharedController.pullToRefresh), for: UIControlEvents.valueChanged)
+            self.ChannelSharedTableView.addSubview(self.refreshControl)
+            self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+            self.ChannelSharedTableView.alwaysBounceVertical = true
+        }
         if(self.downloadCompleteFlag == "start")
         {
             downloadCompleteFlag = "end"
@@ -446,10 +499,19 @@ class ChannelsSharedController: UIViewController  {
                     self.ChannelSharedTableView.reloadData()
                 }
             }
+            UserDefaults.standard.set(ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count, forKey: "streamChannelCount")
         }
         else{
+            
             DispatchQueue.main.async {
+                self.customViewForStreamChannel.stopAnimationg()
+                self.customViewForStreamChannel.removeFromSuperview()
                 self.refreshControl.endRefreshing()
+                self.refreshControl.removeTarget(self, action: #selector(ChannelsSharedController.pullToRefresh), for: UIControlEvents.valueChanged)
+                self.refreshControl.addTarget(self, action: #selector(ChannelsSharedController.pullToRefresh), for: UIControlEvents.valueChanged)
+                self.ChannelSharedTableView.addSubview(self.refreshControl)
+                self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+                self.ChannelSharedTableView.alwaysBounceVertical = true
             }
             self.pullToRefreshActive = false
         }
