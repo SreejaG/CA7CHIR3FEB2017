@@ -53,12 +53,16 @@ class ChannelsSharedController: UIViewController,UIScrollViewDelegate  {
                 self.removeOverlay()
                 if (GlobalStreamList.sharedInstance.GlobalStreamDataSource.count == 0)
                 {
-                    self.removeOverlay()
-                    self.NoDatalabel.removeFromSuperview()
-                    self.NoDatalabel = UILabel(frame: CGRect(x:((self.view.frame.width/2) - 100), y:((self.view.frame.height/2) - 35), width:200, height:70))
-                    self.NoDatalabel.textAlignment = NSTextAlignment.center
-                    self.NoDatalabel.text = "No Channel Available"
-                    self.view.addSubview(self.NoDatalabel)
+                    let startcount : Int = UserDefaults.standard.value(forKey: "streamChannelCount") as! Int
+                    if startcount <= 0
+                    {
+                        self.removeOverlay()
+                        self.NoDatalabel.removeFromSuperview()
+                        self.NoDatalabel = UILabel(frame: CGRect(x:((self.view.frame.width/2) - 100), y:((self.view.frame.height/2) - 35), width:200, height:70))
+                        self.NoDatalabel.textAlignment = NSTextAlignment.center
+                        self.NoDatalabel.text = "No Channel Available"
+                        self.view.addSubview(self.NoDatalabel)
+                    }
                 }
             }
         }
