@@ -186,13 +186,7 @@ class ChannelSharedListAPI: NSObject {
                 dataSource.append(element)
             }
             
-            if UserDefaults.standard.value(forKey:"streamChannelCount") != nil
-            {
-            }
-            else{
-                UserDefaults.standard.set(dataSource.count, forKey: "streamChannelCount")
-            }
-            
+            UserDefaults.standard.set(dummy.count, forKey: "streamChannelCount")
             UserDefaults.standard.set(mediaShared, forKey: "Shared")
             
             if(dataSource.count > 0){
@@ -203,7 +197,6 @@ class ChannelSharedListAPI: NSObject {
                 self.operationQueue.addOperation(operation2)
             }
             else{
-//                UserDefaults.standard.set(dataSource.count, forKey: "streamChannelCount")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PullToRefreshSharedChannelList"), object:"failure")
             }
         }
