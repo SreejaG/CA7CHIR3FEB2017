@@ -1107,36 +1107,43 @@ NSBlockOperation *likeOper;
                             [activityIndicatorProfile startAnimating];//to start animating
                         }
                         mediaTypeChk = streamORChannelDict[indexForSwipe][@"mediaType"];
-                        mediaIdChk = streamORChannelDict[indexForSwipe][@"mediaId"];
-                        NSString *createdTime = streamORChannelDict[indexForSwipe][@"createdTime"];
-                        timeDiffChk = [[FileManagerViewController sharedInstance] getTimeDifferenceWithDateStr:createdTime];
-                        likeCountStrChk = @"";
-                        notifTypeChk = streamORChannelDict[indexForSwipe][@"notification"];
-                        VideoImageUrlChk = streamORChannelDict[indexForSwipe][@"mediaUrl"];
-                        videoDurationChk = streamORChannelDict[indexForSwipe][@"video_duration"];
-                        SetUpView *setUpObj = [[SetUpView alloc]init];
-                        if(screenNumber == 1){
-                            [profileOper cancel];
-                            profileOper = [NSBlockOperation blockOperationWithBlock:^{
-                                [setUpObj getProfileImageSelectedIndexWithUserIdKey:[NSString stringWithFormat:@"%@",streamORChannelDict[indexForSwipe][@"user_name"]] objects:obj1 operObj:profileOper];
-                            }];
-                            [mainQueue addOperation:profileOper];
+                        if([mediaTypeChk  isEqual: @"live"])
+                        {
+                            indexForSwipe = indexForSwipe + 1;
+                            [self removeOverlay];
+                        }
+                        else{
+                            mediaIdChk = streamORChannelDict[indexForSwipe][@"mediaId"];
+                            NSString *createdTime = streamORChannelDict[indexForSwipe][@"createdTime"];
+                            timeDiffChk = [[FileManagerViewController sharedInstance] getTimeDifferenceWithDateStr:createdTime];
+                            likeCountStrChk = @"";
+                            notifTypeChk = streamORChannelDict[indexForSwipe][@"notification"];
+                            VideoImageUrlChk = streamORChannelDict[indexForSwipe][@"mediaUrl"];
+                            videoDurationChk = streamORChannelDict[indexForSwipe][@"video_duration"];
+                            SetUpView *setUpObj = [[SetUpView alloc]init];
+                            if(screenNumber == 1){
+                                [profileOper cancel];
+                                profileOper = [NSBlockOperation blockOperationWithBlock:^{
+                                    [setUpObj getProfileImageSelectedIndexWithUserIdKey:[NSString stringWithFormat:@"%@",streamORChannelDict[indexForSwipe][@"user_name"]] objects:obj1 operObj:profileOper];
+                                }];
+                                [mainQueue addOperation:profileOper];
+                                
+                                channelName.text = streamORChannelDict[indexForSwipe][@"channel_name"];
+                                userName.text = [NSString stringWithFormat:@"@%@",streamORChannelDict[indexForSwipe][@"user_name"]];
+                                channelIdSelected = streamORChannelDict[indexForSwipe][@"ch_detail_id"];
+                            }
                             
-                            channelName.text = streamORChannelDict[indexForSwipe][@"channel_name"];
-                            userName.text = [NSString stringWithFormat:@"@%@",streamORChannelDict[indexForSwipe][@"user_name"]];
-                            channelIdSelected = streamORChannelDict[indexForSwipe][@"ch_detail_id"];
+                            if(screenNumber == 1 || screenNumber == 2){
+                                likeTapFlag = false;
+                                [likeOper cancel];
+                                likeOper = [NSBlockOperation blockOperationWithBlock:^{
+                                    [setUpObj getLikeCountWithMediaType:mediaTypeChk mediaId:mediaIdChk Objects:obj1 operObjs:likeOper];
+                                }];
+                                [mainQueue addOperation:likeOper];
+                            }
+                            
+                            [self setGUIChanges:mediaTypeChk mediaId:mediaIdChk timeDiff:timeDiffChk likeCountStr:likeCountStrChk notifType:notifTypeChk VideoImageUrl:VideoImageUrlChk videoDuration:videoDurationChk];
                         }
-                        
-                        if(screenNumber == 1 || screenNumber == 2){
-                            likeTapFlag = false;
-                            [likeOper cancel];
-                            likeOper = [NSBlockOperation blockOperationWithBlock:^{
-                                [setUpObj getLikeCountWithMediaType:mediaTypeChk mediaId:mediaIdChk Objects:obj1 operObjs:likeOper];
-                            }];
-                            [mainQueue addOperation:likeOper];
-                        }
-                        
-                        [self setGUIChanges:mediaTypeChk mediaId:mediaIdChk timeDiff:timeDiffChk likeCountStr:likeCountStrChk notifType:notifTypeChk VideoImageUrl:VideoImageUrlChk videoDuration:videoDurationChk];
                     }
                     else{
                         [self removeOverlay];

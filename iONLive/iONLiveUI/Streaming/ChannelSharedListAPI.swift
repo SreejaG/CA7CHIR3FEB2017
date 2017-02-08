@@ -180,10 +180,17 @@ class ChannelSharedListAPI: NSObject {
                     return time1 > time2
                 })
             }
-            UserDefaults.standard.set(dummy.count, forKey: "streamChannelCount")
+            
             for element in dummy
             {
                 dataSource.append(element)
+            }
+            
+            if UserDefaults.standard.value(forKey:"streamChannelCount") != nil
+            {
+            }
+            else{
+                UserDefaults.standard.set(dataSource.count, forKey: "streamChannelCount")
             }
             
             UserDefaults.standard.set(mediaShared, forKey: "Shared")
