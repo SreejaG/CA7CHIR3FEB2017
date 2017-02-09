@@ -14,7 +14,7 @@ class uploadMediaToGCS: UIViewController, URLSessionDelegate, URLSessionTaskDele
     
     var path : String = String()
     var media : String = String()
-    var videoSavedURL : NSURL = NSURL()
+    var videoSavedURL : NSURL?
     var videoDuration : String = String()
     
     var imageFromDB : UIImage = UIImage()
@@ -163,10 +163,10 @@ class uploadMediaToGCS: UIViewController, URLSessionDelegate, URLSessionTaskDele
     }
     
     func  saveVideoToCahce()  {
-        if ((videoSavedURL.path?.isEmpty) != nil)
+        if ((videoSavedURL?.path?.isEmpty) != nil)
         {
             do {
-                var imageDatadup = try NSData(contentsOfFile: videoSavedURL.absoluteString!, options: NSData.ReadingOptions())
+                var imageDatadup = try NSData(contentsOfFile: (videoSavedURL?.absoluteString!)!, options: NSData.ReadingOptions())
                 videoData = imageDatadup
                 
                 let parentPath = FileManagerViewController.sharedInstance.getParentDirectoryPath().absoluteString
@@ -176,9 +176,9 @@ class uploadMediaToGCS: UIViewController, URLSessionDelegate, URLSessionTaskDele
                 
                 // delete video from local buffer
                 let fileManager : FileManager = FileManager()
-                if(fileManager.fileExists(atPath: videoSavedURL.absoluteString!)){
+                if(fileManager.fileExists(atPath: (videoSavedURL?.absoluteString!)!)){
                     do {
-                        try fileManager.removeItem(atPath: videoSavedURL.absoluteString!)
+                        try fileManager.removeItem(atPath: (videoSavedURL?.absoluteString!)!)
                     } catch _ as NSError {
                     }
                 }
@@ -186,9 +186,9 @@ class uploadMediaToGCS: UIViewController, URLSessionDelegate, URLSessionTaskDele
                 imageDatadup = NSData()
                 videoData = NSData()
                 
-                if(FileManager.default.fileExists(atPath: videoSavedURL.path!)){
+                if(FileManager.default.fileExists(atPath: (videoSavedURL?.path!)!)){
                     do {
-                        try FileManager.default.removeItem(atPath: videoSavedURL.path!)
+                        try FileManager.default.removeItem(atPath: (videoSavedURL?.path!)!)
                     } catch _ as NSError {
                     }
                 }

@@ -107,7 +107,7 @@ class GlobalDataChannelList: NSObject {
     }
     
     func downloadMediaFromGCS(){
-        var url: NSURL = NSURL()
+//        var url: NSURL = NSURL()
         for i in 0 ..< globalChannelDataSource.count
         {
             if operationInChannelList.isCancelled
@@ -128,7 +128,7 @@ class GlobalDataChannelList: NSObject {
                     }
                     else{
                         let mediaUrl = UrlManager.sharedInstance.getThumbImageForMedia(mediaId: mediaIdChk as! String, userName: userId, accessToken: accessToken)
-                        url = convertStringtoURL(url: mediaUrl)
+                        let url: NSURL  = convertStringtoURL(url: mediaUrl)
                         downloadMedia(downloadURL: url, key: "ThumbImage", completion: { (result) -> Void in
                             if(result != UIImage()){
                                 let imageDataFromresult = UIImageJPEGRepresentation(result, 0.5)
