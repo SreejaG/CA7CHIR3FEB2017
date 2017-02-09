@@ -351,10 +351,6 @@ int timerCount = 0;
                 UIViewController *authenticate = [login instantiateViewControllerWithIdentifier:@"AuthenticateViewController"];
                 authenticate.navigationController.navigationBarHidden = true;
                 [[self navigationController] pushViewController:authenticate animated:false];
-                
-                //                [[self navigationController] presentViewController:authenticate animated:false completion:^{
-                //                    [[ErrorManager sharedInstance] tockenExpired];
-                //                }];
             });
         }
     }
@@ -1758,15 +1754,6 @@ UIImage* rotate(UIImage* src, UIImageOrientation orientation)
                             }
                         }
                     });
-//                    if ([PHAssetResourceCreationOptions class] ) {
-//                        PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
-//                        options.shouldMoveFile = YES;
-//                        PHAssetCreationRequest *changeRequest = [PHAssetCreationRequest creationRequestForAsset];
-//                        [changeRequest addResourceWithType:PHAssetResourceTypeVideo fileURL:videoUrl options:options];
-//                    }
-//                    else {
-//                        [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:videoUrl];
-//                    }
                 } completionHandler:^( BOOL success, NSError *error ) {
                     if ( ! success ) {
                     }

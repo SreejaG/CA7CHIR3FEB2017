@@ -95,7 +95,6 @@ class MySharedChannelsViewController: UIViewController {
                 dataSource.append(element)
             }
         }
-        print("Data in did load   \(dataSource)")
         if dataSource.count > 0{
             sharedChannelsTableView.reloadData()
         }

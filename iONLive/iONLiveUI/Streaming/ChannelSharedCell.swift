@@ -20,6 +20,5 @@ class ChannelSharedCell: UITableViewCell {
         countLabel.layer.masksToBounds = true
         channelProfileImage.layer.cornerRadius = channelProfileImage.frame.size.width/2
         channelProfileImage.layer.masksToBounds = true
-        
     }
 }

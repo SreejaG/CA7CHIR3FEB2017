@@ -87,7 +87,7 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-       view.endEditing(true)
+        view.endEditing(true)
     }
     
     func tableViewTap(recognizer: UITapGestureRecognizer)
@@ -95,16 +95,15 @@ class EditProfileViewController: UIViewController, UINavigationControllerDelegat
         if recognizer.state == UIGestureRecognizerState.ended {
             let swipeLocation = recognizer.location(in: self.editProfTableView)
             if let swipedIndexPath = editProfTableView.indexPathForRow(at: swipeLocation) {
-//                if swipedIndexPath.section == 1 && swipedIndexPath.row == 2
-//                {
-//                    let sharingStoryboard = UIStoryboard(name:"EditProfile", bundle: nil)
-//                    let channelItemListVC = sharingStoryboard.instantiateViewController(withIdentifier: "ResetPasswordViewController") as! ResetPasswordViewController
-//                    channelItemListVC.navigationController?.isNavigationBarHidden = true
-//                    self.present(channelItemListVC, animated: false) { () -> Void in
-//                    }
-//                }
-//                else
-                if (swipedIndexPath.section == 1 && swipedIndexPath.row == 3)
+                if swipedIndexPath.section == 1 && swipedIndexPath.row == 2
+                {
+                    let sharingStoryboard = UIStoryboard(name:"EditProfile", bundle: nil)
+                    let channelItemListVC = sharingStoryboard.instantiateViewController(withIdentifier: "ResetPasswordViewController") as! ResetPasswordViewController
+                    channelItemListVC.navigationController?.isNavigationBarHidden = true
+                    self.present(channelItemListVC, animated: false) { () -> Void in
+                    }
+                }
+                else if (swipedIndexPath.section == 1 && swipedIndexPath.row == 3)
                 {
                     synchronisingTapped()
                 }

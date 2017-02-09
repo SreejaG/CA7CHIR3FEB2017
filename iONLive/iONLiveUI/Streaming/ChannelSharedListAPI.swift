@@ -190,7 +190,7 @@ class ChannelSharedListAPI: NSObject {
             UserDefaults.standard.set(mediaShared, forKey: "Shared")
             
             if(dataSource.count > 0){
-               
+                
                 operation2  = BlockOperation (block: {
                     self.downloadMediaFromGCS()
                 })

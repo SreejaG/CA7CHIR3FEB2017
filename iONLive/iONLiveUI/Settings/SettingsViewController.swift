@@ -194,33 +194,33 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource
                 cell.backgroundColor = UIColor.clear
                 cell.isUserInteractionEnabled = true
                 cell.selectionStyle = .none
-//                if indexPath.row == 4 || indexPath.row == 7
-//                {
-//                    cell.isUserInteractionEnabled = true
-//                    cell.backgroundColor = UIColor.clear
-//                    cell.titlelabel.textColor = UIColor.black
-//                    cell.titlelabel.alpha = 0.6
-//                    var switchStatus : Int = Int()
-//                    if indexPath.row == 4
-//                    {
-//                        switchStatus = UserDefaults.standard.integer(forKey: "flashMode")
-//                    }
-//                    else if indexPath.row == 7{
-//                        switchStatus =  UserDefaults.standard.integer(forKey: "SaveToCameraRoll")
-//                    }
-//                    if switchStatus == 0
-//                    {
-//                        cell.toggleCellSwitch.setOn(false, animated: false)
-//                    }
-//                    else{
-//                        cell.toggleCellSwitch.setOn(true, animated: false)
-//                    }
-//                }
-//                else{
+                if indexPath.row == 4 || indexPath.row == 7
+                {
+                    cell.isUserInteractionEnabled = true
+                    cell.backgroundColor = UIColor.clear
+                    cell.titlelabel.textColor = UIColor.black
+                    cell.titlelabel.alpha = 0.6
+                    var switchStatus : Int = Int()
+                    if indexPath.row == 4
+                    {
+                        switchStatus = UserDefaults.standard.integer(forKey: "flashMode")
+                    }
+                    else if indexPath.row == 7{
+                        switchStatus =  UserDefaults.standard.integer(forKey: "SaveToCameraRoll")
+                    }
+                    if switchStatus == 0
+                    {
+                        cell.toggleCellSwitch.setOn(false, animated: false)
+                    }
+                    else{
+                        cell.toggleCellSwitch.setOn(true, animated: false)
+                    }
+                }
+                else{
                     cell.isUserInteractionEnabled = false
                     cell.titlelabel.textColor = UIColor.lightGray
                     cell.titlelabel.alpha = 1.0
-//                }
+                }
                 cell.cellDelegate = self
                 return cell
             }
@@ -231,7 +231,7 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource
                 cell.accessryLabel.text = cellDataSource[accessryText]
                 cell.backgroundColor = UIColor.clear
                 
-                if(((indexPath.section == 1) && (indexPath.row == 0)) || ((indexPath.section == 0) && (indexPath.row == 9)) /*|| ((indexPath.section == 2) && (indexPath.row == 1))  || ((indexPath.section == 1) && (indexPath.row == 1))  || ((indexPath.section == 2) && (indexPath.row == 2)) */)
+                if(((indexPath.section == 1) && (indexPath.row == 0)) || ((indexPath.section == 0) && (indexPath.row == 9)) || ((indexPath.section == 2) && (indexPath.row == 1))  || ((indexPath.section == 1) && (indexPath.row == 1))  || ((indexPath.section == 2) && (indexPath.row == 2)))
                 {
                     cell.titleLabel.textColor = UIColor.black
                     cell.accessryLabel.textColor = UIColor.black
@@ -293,7 +293,7 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource
                 loadEditProfileView()
                 break
             case 1:
-//                loadDeleteMediaOptionsView()
+                loadDeleteMediaOptionsView()
                 break
             case 2:
                 //   loadConnectAccountView()
@@ -307,10 +307,10 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource
             case 0:
                 break
             case 1:
-//                loadReportProblemView()
+                loadReportProblemView()
                 break
             case 2:
-//                loadAppInfoView()
+                loadAppInfoView()
                 break
             default:
                 break

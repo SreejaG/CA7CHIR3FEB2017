@@ -37,7 +37,7 @@ class OtherChannelViewController: UIViewController  {
     
     var operationQueueObjRedirectionOtherChannel = OperationQueue()
     var operationInRedirectionOtherChannel = BlockOperation()
-
+    
     
     @IBOutlet weak var notificationLabel: UILabel!
     override func viewDidLoad()
@@ -621,9 +621,19 @@ class OtherChannelViewController: UIViewController  {
             if((type ==  "image") || (type == "video"))
             {
                 let dateString = SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow]["createdTime"] as! String
-                let index = Int32 (indexPathRow)
+                
+                var index = Int()
+                let type = SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[0][stream_mediaTypeKey] as! String
+                if type == "live"
+                {
+                    index = indexPathRow - 1
+                }
+                else{
+                    index = indexPathRow
+                }
+                
                 let imageTakenTime = FileManagerViewController.sharedInstance.getTimeDifference(dateStr: dateString)
-                vc = MovieViewController.movieViewController(withImageVideo: self.channelName,channelId: self.channelId as String, userName: userName, mediaType: SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][stream_mediaTypeKey] as! String, profileImage:self.profileImage,videoImageUrl:SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][mediaUrlKey] as! UIImage, notifType: SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][notificationKey] as! String, mediaId: SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][stream_mediaIdKey] as! String,timeDiff: imageTakenTime,likeCountStr: likeCount, selectedItem: index,pageIndicator: 2, videoDuration: SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][videoDurationKey] as? String) as! MovieViewController
+                vc = MovieViewController.movieViewController(withImageVideo: self.channelName,channelId: self.channelId as String, userName: userName, mediaType: SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][stream_mediaTypeKey] as! String, profileImage:self.profileImage,videoImageUrl:SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][mediaUrlKey] as! UIImage, notifType: SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][notificationKey] as! String, mediaId: SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][stream_mediaIdKey] as! String,timeDiff: imageTakenTime,likeCountStr: likeCount, selectedItem: Int32(index),pageIndicator: 2, videoDuration: SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPathRow][videoDurationKey] as? String) as! MovieViewController
                 self.present(vc, animated: false) { () -> Void in
                 }
             }
@@ -673,7 +683,7 @@ extension OtherChannelViewController : UICollectionViewDataSource,UICollectionVi
                 if mediaType == "video"
                 {
                     let vDuration  = SharedChannelDetailsAPI.sharedInstance.selectedSharedChannelMediaSource[indexPath.row][videoDurationKey] as! String
-                    cell.detailLabel.isHidden = true
+                    cell.detailLabel.isHidden = false
                     cell.detailLabel.text = vDuration
                     cell.videoView.isHidden = false
                     cell.videoView.image = UIImage(named: "Live_now_off_mode")
@@ -731,13 +741,6 @@ extension OtherChannelViewController : UICollectionViewDataSource,UICollectionVi
                     self.didSelectExtension(indexPathRow: indexPath.row,operation:self.operationInRedirectionOtherChannel)
                 })
                 self.operationQueueObjRedirectionOtherChannel.addOperation(operationInRedirectionOtherChannel)
-//                let backgroundQueue = DispatchQueue(label: "com.app.queue",
-//                                                    qos: .background,
-//                                                    target: nil)
-//                backgroundQueue.async {
-//                    self.didSelectExtension(indexPathRow: indexPath.row)
-//                }
-//                didSelectExtension(indexPathRow: indexPath.row)
             }
         }
     }

@@ -107,7 +107,6 @@ class GlobalDataChannelList: NSObject {
     }
     
     func downloadMediaFromGCS(){
-//        var url: NSURL = NSURL()
         for i in 0 ..< globalChannelDataSource.count
         {
             if operationInChannelList.isCancelled

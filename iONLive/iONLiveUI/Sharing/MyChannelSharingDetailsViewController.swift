@@ -291,13 +291,6 @@ class MyChannelSharingDetailsViewController: UIViewController {
                     self.downloadMediaFromGCS(operationObj: self.operationInSharingScreenContactList)
                 })
                 self.operationQueueObjInSharingContactList.addOperation(operationInSharingScreenContactList)
-                
-                //                let backgroundQueue = DispatchQueue(label: "com.app.queue",
-                //                                                    qos: .background,
-                //                                                    target: nil)
-                //                backgroundQueue.async {
-                //                    self.downloadMediaFromGCS()
-                //                }
             }
             else
             {

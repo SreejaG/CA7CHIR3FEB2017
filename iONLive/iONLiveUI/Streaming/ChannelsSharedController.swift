@@ -132,9 +132,6 @@ class ChannelsSharedController: UIViewController,UIScrollViewDelegate  {
             self.NoDatalabel.removeFromSuperview()
             if (ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count == 0)
             {
-//                DispatchQueue.main.async {
-//                    self.showOverlay()
-//                }
                 let userId = UserDefaults.standard.value(forKey: userLoginIdKey) as! String
                 let accessToken = UserDefaults.standard.value(forKey: userAccessTockenKey) as! String
                 ChannelSharedListAPI.sharedInstance.getChannelSharedDetails(userName: userId, token: accessToken)
@@ -158,7 +155,6 @@ class ChannelsSharedController: UIViewController,UIScrollViewDelegate  {
         }
     }
     
-    
     // channel delete push notification handler
     func channelDeletionPushNotification(info:  [String : AnyObject])
     {
@@ -174,7 +170,7 @@ class ChannelsSharedController: UIViewController,UIScrollViewDelegate  {
             else
             {
                 UserDefaults.standard.set(ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.count, forKey: "streamChannelCount")
-
+                
                 self.NoDatalabel.removeFromSuperview()
             }
             self.ChannelSharedTableView.reloadData()
@@ -216,7 +212,7 @@ class ChannelsSharedController: UIViewController,UIScrollViewDelegate  {
                 let itemToMove = ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource[index]
                 ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.remove(at: index)
                 ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.insert(itemToMove, at: 0)
-                 ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.sort(by: { p1, p2 in
+                ChannelSharedListAPI.sharedInstance.SharedChannelListDataSource.sort(by: { p1, p2 in
                     
                     let time1 = p1[liveStreamStatus] as! String
                     let time2 = p2[liveStreamStatus] as! String
@@ -556,11 +552,11 @@ extension ChannelsSharedController:UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             if(self.customViewForStreamChannelFlag){
-                    self.customViewForStreamChannel.stopAnimationg()
-                    self.customViewForStreamChannel.removeFromSuperview()
-                    self.customViewForStreamChannel = CustomInfiniteIndicator(frame: CGRect(x:(self.ChannelSharedTableView.layer.frame.width/2 - 20), y:(self.ChannelSharedTableView.contentSize.height + 20), width:40, height:40))
-                    self.ChannelSharedTableView.addSubview(self.customViewForStreamChannel)
-                    self.customViewForStreamChannel.startAnimating()
+                self.customViewForStreamChannel.stopAnimationg()
+                self.customViewForStreamChannel.removeFromSuperview()
+                self.customViewForStreamChannel = CustomInfiniteIndicator(frame: CGRect(x:(self.ChannelSharedTableView.layer.frame.width/2 - 20), y:(self.ChannelSharedTableView.contentSize.height + 20), width:40, height:40))
+                self.ChannelSharedTableView.addSubview(self.customViewForStreamChannel)
+                self.customViewForStreamChannel.startAnimating()
             }
             self.removeOverlay()
         }
