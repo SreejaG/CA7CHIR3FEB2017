@@ -147,7 +147,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumb12" translatesAutoresizingMaskIntoConstraints="NO" id="jfD-0G-DsL">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumb12" translatesAutoresizingMaskIntoConstraints="NO" id="jfD-0G-DsL">
                                                             <rect key="frame" x="20" y="3" width="60" height="65"/>
                                                             <gestureRecognizers/>
                                                             <constraints>
@@ -674,7 +674,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="71"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumb11" translatesAutoresizingMaskIntoConstraints="NO" id="koW-7h-ltn">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumb12" translatesAutoresizingMaskIntoConstraints="NO" id="koW-7h-ltn">
                                                             <rect key="frame" x="19" y="3" width="60" height="65"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="65" id="ahx-yy-3fP"/>
@@ -878,7 +878,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummyUser" translatesAutoresizingMaskIntoConstraints="NO" id="Grn-lP-Ucd">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummyUser" translatesAutoresizingMaskIntoConstraints="NO" id="Grn-lP-Ucd">
                                                             <rect key="frame" x="8" y="2" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="VRH-7U-1hN"/>
@@ -979,7 +979,6 @@
         <image name="notif" width="29" height="25"/>
         <image name="plusChannel" width="65" height="65"/>
         <image name="snapCamMode" width="25" height="25"/>
-        <image name="thumb11" width="124" height="125"/>
         <image name="thumb12" width="170" height="170"/>
         <image name="triIcon" width="587" height="437"/>
         <image name="white_back" width="12" height="20"/>
